@@ -1,7 +1,7 @@
 ﻿public abstract class Figura
 {
-    private string? color;
-    private int l, a, x, y;
+    protected string? color;
+    protected int l, a, x, y;
     public Figura(int L,int A,string? color, int x, int y)
     {
         this.l = L;
@@ -16,7 +16,7 @@
 public class Rectangulo
     :Figura
 {
-    public Rectangulo(int largo, int ancho, string color, int x, int y)
+    public Rectangulo(int l, int a, string color, int x, int y)
         :base(l,a,color,x,y)
     {
 
@@ -24,7 +24,7 @@ public class Rectangulo
     public override float Area(){return l*a;}
     public override void Dibuja()
     {
-        Console.WriteLine("Se dibuja un rectángulo");
+        Console.WriteLine($"Se dibuja un rectángulo en las coordenadas [{x},{y}]");
     }
 }
 public class Circulo
@@ -36,10 +36,10 @@ public class Circulo
     {
         this.diametro = diametro;
     }
-    public override float Area(){return MathF.Pow((MathF.PI*diametro)/2,2);}
+    public override float Area(){return MathF.PI*MathF.Pow(((diametro)/4),2);}
     public override void Dibuja()
     {
-        Console.WriteLine("Se dibuja un círculo");
+        Console.WriteLine($"Se dibuja un círculo en las coordenadas [{x},{y}]");
     }
 }
 public class Triangulo
@@ -52,9 +52,27 @@ public class Triangulo
         this.bas = bas;
         this.altura = altura;
     }
-    public override float Area(){return (bas*altura)/2}
+    public override float Area(){return (bas*altura)/2;}
     public override void Dibuja()
     {
-        Console.WriteLine("Se dibuja un triángulo");
+        Console.WriteLine($"Se dibuja un triángulo en las coordenadas [{x},{y}]");
+    }
+}
+
+
+internal class Program
+{
+    private static void Main(string[] args)
+    {
+        Rectangulo r1 = new Rectangulo(25,15,"azul",25,15);
+        Triangulo t1 = new Triangulo(14,25,"verde",15,15,65,25);
+        Circulo c1 = new Circulo(25,15,"negro",15,48,15);
+        
+        t1.Dibuja();
+        Console.WriteLine($"el area es {t1.Area()}\n");
+        c1.Dibuja();
+        Console.WriteLine($"el area es {c1.Area()}\n");
+        r1.Dibuja();
+        Console.WriteLine($"el area es {r1.Area()}\n");
     }
 }
